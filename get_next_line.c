@@ -71,9 +71,16 @@ char	*get_next_line(int fd)
 			save = line;
 			line = ft_strjoin(save, buf);
 			output = ft_super_join(output, line);
+		}
+		free(save);
 	}
-	line = ft_strchr(line, '\n');
-	printf("line : {%s}\n", line);
+	else if (line)
+	{
+		line = ft_strchr(line, '\n');
+		line += 1;
+		output = ft_super_join(output, line);
+	}
+	//printf("line : {%s}\n", line);
 	if (!line)
 		return (NULL);
 	if (!output)
@@ -89,7 +96,8 @@ int main()
 	file = open("texte.txt", O_RDONLY);
 	if (!file)
 		exit(1);
-	printf("resultat line 1 : %s\n", get_next_line(file));
+	printf("resultat line 1 :%s\n", get_next_line(file));
 	printf("resultat line 2 :%s\n", get_next_line(file));
+	printf("resultat line 3 :%s\n", get_next_line(file));
 	close(file);
 }
