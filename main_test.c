@@ -14,6 +14,7 @@ int	ft_strlen(char *str)
 }
 
 static char	buf[BUFFER_SIZE];
+static char	line[BUFFER_SIZE];
 
 /*int	line_size(int fd)
 {
@@ -64,7 +65,7 @@ char	*get_next_line(int fd)
 	return (output);
 }
 
-int main()
+/*int main()
 {
 	int		file;
 	char	*output;
@@ -79,4 +80,4 @@ int main()
 	//printf("%d\n", line_size(file));
 	//printf("%s\n", get_next_line(file));
 	close(file);
-}
+}*/

@@ -1,29 +1,79 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdio.h>
+#include "get_next_line.h"
 
-char	*get_next_line(int fd)
+int	ft_strlen_spe(char const *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	return (i);
+}
+
+char	*ft_super_join(char const *s1, char const *s2)
 {
 	char	*output;
-	int		read_file;
-	char	buf[BUFFER_SIZE];
 	int		i;
-
+	int		j;
+	
 	i = 0;
-	while((read_file = read(fd, buf, 1)) && buf[i] != '\n')
-		i++;
-	output = malloc(sizeof(char) * i + 1);
+	//if (s1)
+	//	i = ft_strlen(s1);
+	output = malloc(sizeof(char) * (ft_strlen_spe(s2) + 1));
 	if (!output)
 		return (NULL);
-	i = 0;
-	while((read_file = read(fd, buf, 1)) && output[i] != '\n')
+	j = 0;
+	while (j < ft_strlen_spe(s2))
 	{
-		output[i] = *buf;
-		i++;
+		output[i] = s2[j];
+		++i;
+		++j;
 	}
 	output[i] = '\0';
 	return (output);
 }
 
+int	ft_where_end(char *s)
+{
+	int	i;
+	
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (0);
+}
 
+char	*get_next_line(int fd)
+{
+	char		*output;
+	char		buf[BUFFER_SIZE + 1];
+	char		*save;
+	static char *line = NULL;
+
+	while (read(fd, buf, BUFFER_SIZE) )//&& !ft_where_end(output))
+	{
+		save = line;
+		line = ft_strjoin(save, buf);
+		output = ft_super_join(output, line);
+	}
+	if (!output)
+		return (NULL);
+	return (output);
+}
+
+
+int main()
+{
+	int		file;
+
+	file = open("texte.txt", O_RDONLY);
+	if (!file)
+		exit(1);
+	printf("resultat line 1 : %s\n", get_next_line(file));
+	printf("resultat line 2 :%s\n", get_next_line(file));
+	close(file);
+}
