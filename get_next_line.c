@@ -63,12 +63,14 @@ char	*get_next_line(int fd)
 	char		*save;
 	static char *line = NULL;
 
-	while (read(fd, buf, BUFFER_SIZE) )//&& !ft_where_end(output))
+	if (!line)
 	{
-		buf[BUFFER_SIZE] = 0;
-		save = line;
-		line = ft_strjoin(save, buf);
-		output = ft_super_join(output, line);
+		while (read(fd, buf, BUFFER_SIZE) )//&& !ft_where_end(output))
+		{
+			buf[BUFFER_SIZE] = 0;
+			save = line;
+			line = ft_strjoin(save, buf);
+			output = ft_super_join(output, line);
 	}
 	line = ft_strchr(line, '\n');
 	printf("line : {%s}\n", line);
