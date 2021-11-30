@@ -12,11 +12,10 @@ char	*ft_first_line(char *buf, int fd, char *line)
 		{
 			buf[BUFFER_SIZE] = 0;
 			read_file = read(fd, buf, BUFFER_SIZE);
-			//if (read_file <= 0)
-			//	return (NULL);
+			if (read_file <= 0)
+				return (NULL);
 			save = line;
 			line = ft_strjoin(save, buf);
-			//free(save);
 		}
 		return (line);
 	}
@@ -40,11 +39,10 @@ char	*ft_next_line(char *buf, int fd, char *line)
 		{
 			buf[BUFFER_SIZE] = 0;
 			read_file = read(fd, buf, BUFFER_SIZE);
-			//if (read_file <= 0)
-			//	return (NULL);
+			if (read_file <= 0)
+				return (NULL);
 			save = line;
 			line = ft_strjoin(save, buf);
-			//free(save);
 		}
 		return (line);
 	//}
