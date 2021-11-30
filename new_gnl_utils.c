@@ -39,7 +39,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	output = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	//printf("size de buf : %zu\n", ft_strlen(s2));
 	if (!output)
 		return (NULL);
 	i = 0;
@@ -77,7 +76,10 @@ char	*ft_super_join(char *s1, char const *s2)
 	i = 0;
 	if (!s2 && !s1)
 		return (NULL);
+	free(NULL);
 	s1 = malloc(sizeof(char) * (ft_strlen_spe(s2) + 2));
+	if (!s1)
+		return (NULL);
 	j = 0;
 	while (j < ft_strlen_spe(s2))
 	{

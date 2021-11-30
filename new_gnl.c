@@ -12,11 +12,11 @@ char	*ft_first_line(char *buf, int fd, char *line)
 		{
 			buf[BUFFER_SIZE] = 0;
 			read_file = read(fd, buf, BUFFER_SIZE);
-			printf("read_file : %d\n", read_file);
-			if (read_file <= 0)
-				return (NULL);
+			//if (read_file <= 0)
+			//	return (NULL);
 			save = line;
 			line = ft_strjoin(save, buf);
+			//free(save);
 		}
 		return (line);
 	}
@@ -29,28 +29,27 @@ char	*ft_next_line(char *buf, int fd, char *line)
 	char	*save;
 	int		read_file;
 
-	if (BUFFER_SIZE > 0)
-	{
-		read_file = 1;
-		line = ft_strchr(line, '\n');
-		line += 1;
-		if (ft_strchr(line, '\n'))
-			return (line);
+	read_file = 1;
+	line = ft_strchr(line, '\n');
+	line += 1;
+	if (ft_strchr(line, '\n'))
+		return (line);
+	//if (BUFFER_SIZE <= ft_strlen(line))
+	//{
 		while (read_file && (!(ft_strchr(buf, '\n'))))
 		{
 			buf[BUFFER_SIZE] = 0;
-			printf("read_file : %d\n", read_file);
 			read_file = read(fd, buf, BUFFER_SIZE);
-			printf("read_file : %d\n", read_file);
-			if (read_file <= 0)
-				return (NULL);
+			//if (read_file <= 0)
+			//	return (NULL);
 			save = line;
 			line = ft_strjoin(save, buf);
+			//free(save);
 		}
 		return (line);
-	}
-	else
-		return (NULL);
+	//}
+	//else
+	//	return (NULL);
 }
 
 char	*get_next_line(int fd)
@@ -97,7 +96,7 @@ int main()
 		free(temp);
 		temp = get_next_line(file);
 	}
-	//while (i)
+	free(temp);
 	//temp = get_next_line(file);
 	//printf("%s", temp);
 	close(file);
