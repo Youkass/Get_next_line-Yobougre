@@ -10,5 +10,5 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen_spe(char const *s);
-char	*ft_super_join(char const *s1, char const *s2);
+char	*ft_super_join(char *s1, char const *s2);
 #endif

@@ -17,9 +17,9 @@ char	*ft_super_join(char const *s1, char const *s2)
 	int		j;
 	
 	i = 0;
-	//if (s1)
-	//	i = ft_strlen(s1);
-	output = malloc(sizeof(char) * (ft_strlen_spe(s2) + 1));
+	if (s1)
+		i = ft_strlen(s1);
+	output = malloc(sizeof(char) * (ft_strlen_spe(s2) + 2));
 	if (!output)
 		return (NULL);
 	j = 0;
@@ -29,7 +29,8 @@ char	*ft_super_join(char const *s1, char const *s2)
 		++i;
 		++j;
 	}
-	output[i] = '\0';
+	output[i] = '\n';
+	output[i + 1] = '\0';
 	return (output);
 }
 
@@ -41,7 +42,7 @@ char	*ft_where_start(char *s, int limite)
 	
 	i = 0;
 	j = 0;
-	output = malloc(BUFFER_SIZE + 1);
+	output = malloc(sizeof(output) * (BUFFER_SIZE + 1));
 	if (!output)
 		return (NULL);
 	while (s[i] != '\n')
@@ -55,7 +56,7 @@ char	*ft_where_start(char *s, int limite)
 	output[i] = 0;
 	return (output);
 }
-
+/*verif buffer_size*/
 char	*get_next_line(int fd)
 {
 	char		*output;
@@ -65,7 +66,7 @@ char	*get_next_line(int fd)
 
 	if (!line)
 	{
-		while (read(fd, buf, BUFFER_SIZE) )//&& !ft_where_end(output))
+		while (read(fd, buf, BUFFER_SIZE))
 		{
 			buf[BUFFER_SIZE] = 0;
 			save = line;
@@ -80,9 +81,6 @@ char	*get_next_line(int fd)
 		line += 1;
 		output = ft_super_join(output, line);
 	}
-	//printf("line : {%s}\n", line);
-	if (!line)
-		return (NULL);
 	if (!output)
 		return (NULL);
 	return (output);
@@ -92,12 +90,17 @@ char	*get_next_line(int fd)
 int main()
 {
 	int		file;
+	char	*temp = NULL;
 
 	file = open("texte.txt", O_RDONLY);
 	if (!file)
 		exit(1);
-	printf("resultat line 1 :%s\n", get_next_line(file));
-	printf("resultat line 2 :%s\n", get_next_line(file));
-	printf("resultat line 3 :%s\n", get_next_line(file));
+	temp = get_next_line(file);
+	while (temp)
+	{
+		printf("%s", temp);
+		free(temp);
+		temp = get_next_line(file);
+	}
 	close(file);
 }
