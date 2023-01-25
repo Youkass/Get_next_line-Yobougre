@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 16:54:35 by yobougre          #+#    #+#             */
-/*   Updated: 2021/12/02 16:54:54 by yobougre         ###   ########.fr       */
+/*   Created: 2021/12/02 17:40:22 by yobougre          #+#    #+#             */
+/*   Updated: 2021/12/02 17:44:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_next_line(char *line)
 {
@@ -43,7 +43,7 @@ char	*ft_next_line(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*line = NULL;
+	static char	*line[1042];
 	char		*output;
 	char		*buf;
 	int			read_file;
@@ -54,15 +54,15 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while (read_file && (!(ft_strchr_pimp(line, '\n'))))
+	while (read_file && (!(ft_strchr_pimp(line[fd], '\n'))))
 	{
 		read_file = read(fd, buf, BUFFER_SIZE);
 		buf[read_file] = 0;
 		if (read_file <= 0)
 			break ;
-		line = ft_strjoin_pimp(line, buf);
+		line[fd] = ft_strjoin_pimp(line[fd], buf);
 	}
-	output = ft_strdup_pimp(line);
-	line = ft_next_line(line);
+	output = ft_strdup_pimp(line[fd]);
+	line[fd] = ft_next_line(line[fd]);
 	return (free(buf), output);
 }

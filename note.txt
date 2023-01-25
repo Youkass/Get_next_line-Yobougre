@@ -1,0 +1,3 @@
+[STASH] "efjwejfwelfkjwefljwelk:q\n(dfhjksfhk)"
+i =      +++++++++++++++++++++++
+strlen(stash + i) = 
